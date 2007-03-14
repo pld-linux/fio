@@ -1,5 +1,5 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
-#Summary(pl):	-
+Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	1.12
 Release:	0.1
@@ -22,7 +22,17 @@ simple-to-understand text format. Several example job files are
 included. fio displays all sorts of I/O performance information. It
 supports Linux, FreeBSD, and OpenSolaris.
 
-#%%description -l pl
+%description -l pl.UTF-8
+fio to narzędzie do mierzenia wydajności I/O oraz sprawdzania
+sprawności sprzętu pod dużym obciążeniem. Obsługuje 9 różnych rodzajów
+silników I/O (sync, mmap, libaio, posixaio, SG v3, splice, null,
+network, syslet), priorytety I/O (dla nowszych jąder Linuksa),
+przepustowość I/O, zadania wieloprocesowe lub wielowątkowe i wiele
+więcej. Może działać na urządzeniach blokowych oraz na plikach. fio
+przyjmuje opisy zadań w formacie tekstowym prostym do zrozumienia. Ma
+załączone kilka przykładowych plików zadań. Wyświetla wszystkie
+rodzaje informacji o wydajności I/O. Obsługuje Linuksa, FreeBSD i
+OpenSolarisa.
 
 %prep
 %setup -q
