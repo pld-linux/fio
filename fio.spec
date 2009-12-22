@@ -1,12 +1,13 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	1.12
+Version:	1.36
 Release:	0.1
 License:	GPL v2
 Group:		Applications
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	d4acc850d9b7197e31c08a204368c1ab
+# Source0-md5:	39bcdb3864091b8e6bced4b360988c52
+Patch0:		%{name}-makefile.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	libaio-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -24,18 +25,19 @@ supports Linux, FreeBSD, and OpenSolaris.
 
 %description -l pl.UTF-8
 fio to narzędzie do mierzenia wydajności I/O oraz sprawdzania
-sprawności sprzętu pod dużym obciążeniem. Obsługuje 9 różnych rodzajów
-silników I/O (sync, mmap, libaio, posixaio, SG v3, splice, null,
-network, syslet), priorytety I/O (dla nowszych jąder Linuksa),
+sprawności sprzętu pod dużym obciążeniem. Obsługuje 9 różnych
+rodzajów silników I/O (sync, mmap, libaio, posixaio, SG v3, splice,
+null, network, syslet), priorytety I/O (dla nowszych jąder Linuksa),
 przepustowość I/O, zadania wieloprocesowe lub wielowątkowe i wiele
-więcej. Może działać na urządzeniach blokowych oraz na plikach. fio
-przyjmuje opisy zadań w formacie tekstowym prostym do zrozumienia. Ma
-załączone kilka przykładowych plików zadań. Wyświetla wszystkie
-rodzaje informacji o wydajności I/O. Obsługuje Linuksa, FreeBSD i
-OpenSolarisa.
+więcej. Może działać na urządzeniach blokowych oraz na plikach.
+fio przyjmuje opisy zadań w formacie tekstowym prostym do
+zrozumienia. Ma załączone kilka przykładowych plików zadań.
+Wyświetla wszystkie rodzaje informacji o wydajności I/O. Obsługuje
+Linuksa, FreeBSD i OpenSolarisa.
 
 %prep
 %setup -q
+#%patch0 -p0
 
 %build
 %{__make} \
@@ -49,6 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	prefix="%{_prefix}" \
+	mandir="%{_mandir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -57,4 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc HOWTO README
+%doc examples
 %attr(755,root,root) %{_bindir}/*
+%{_mandir}/man1/fio*.1*
