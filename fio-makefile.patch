@@ -1,0 +1,11 @@
+--- fio-1.41/Makefile~	2010-06-18 14:49:46.000000000 +0200
++++ fio-1.41/Makefile	2010-06-21 14:37:31.048786266 +0200
+@@ -52,7 +52,7 @@
+ %.o: %.c
+ 	$(QUIET_CC)$(CC) -o $*.o -c $(CFLAGS) $<
+ fio: $(OBJS)
+-	$(QUIET_CC)$(CC) $(CFLAGS) -o $@ $(filter %.o,$^) $(EXTLIBS) -lpthread -lm -ldl -laio -lrt
++	$(QUIET_CC)$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(filter %.o,$^) $(EXTLIBS) -lpthread -lm -ldl -laio -lrt
+ 
+ depend:
+ 	$(QUIET_DEP)$(CC) -MM $(ALL_CFLAGS) *.c engines/*.c crc/*.c 1> .depend
