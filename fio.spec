@@ -1,12 +1,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	1.41
+Version:	1.41.3
 Release:	0.1
 License:	GPL v2
 Group:		Applications
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	d185e0948a9d2738102ade77e56c7233
+# Source0-md5:	75e46c948ec68cfa42e13826c7eb636a
 Patch0:		%{name}-makefile.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	libaio-devel
