@@ -1,12 +1,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	1.44.3
+Version:	1.50.1
 Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	005cf7efe075600a20166d68e71132af
+# Source0-md5:	a7e0876d1978dcf834a8daf5b5d2885b
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-crc32c-intel.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
@@ -46,6 +46,7 @@ OpenSolarisa.
 	CC="%{__cc}" \
 	OPTFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmldflags}" \
+	V=1 \
 	%{?debug:DEBUGFLAGS=-D_FORTIFY_SOURCE=2}%{!?debug:DEBUGFLAGS=}
 
 %install
