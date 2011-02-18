@@ -44,10 +44,9 @@ OpenSolarisa.
 %build
 %{__make} \
 	CC="%{__cc}" \
-	OPTFLAGS="%{rpmcflags}" \
+	OPTFLAGS="%{rpmcflags} %{rpmcppflags}" \
 	LDFLAGS="%{rpmldflags}" \
-	V=1 \
-	%{?debug:DEBUGFLAGS=-D_FORTIFY_SOURCE=2}%{!?debug:DEBUGFLAGS=}
+	V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
