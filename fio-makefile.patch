@@ -1,20 +1,11 @@
---- fio-1.50.2/Makefile~	2011-01-27 22:26:29.000000000 +0100
-+++ fio-1.50.2/Makefile	2011-01-28 09:15:22.476995900 +0100
+--- fio-1.51/Makefile~	2011-03-22 14:33:04.000000000 +0100
++++ fio-1.51/Makefile	2011-03-28 09:21:02.828082564 +0200
 @@ -2,7 +2,7 @@
  DEBUGFLAGS = -D_FORTIFY_SOURCE=2 -DFIO_INC_DEBUG
  CPPFLAGS= -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 \
  	$(DEBUGFLAGS)
 -OPTFLAGS= -O2 -fno-omit-frame-pointer -g $(EXTFLAGS)
 +OPTFLAGS= $(EXTFLAGS)
- CFLAGS	= -std=gnu99 -Wwrite-strings -Wall $(OPTFLAGS) -rdynamic
- LIBS	= -lpthread -lm -ldl -lrt -laio
+ CFLAGS	= -std=gnu99 -Wwrite-strings -Wall $(OPTFLAGS)
+ LIBS	= -lm
  PROGS	= fio
-@@ -35,7 +35,7 @@
- 	$(QUIET_CC)$(CC) -o $@ -c $(CFLAGS) $(CPPFLAGS) $<
- 	
- fio: $(OBJS)
--	$(QUIET_CC)$(CC) $(CFLAGS) -o $@ $(LIBS) $(OBJS)
-+	$(QUIET_CC)$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
- 
- depend:
- 	$(QUIET_DEP)$(CC) -MM $(CFLAGS) $(CPPFLAGS) $(SOURCE) 1> .depend
