@@ -1,11 +1,11 @@
---- fio-1.51/Makefile~	2011-03-22 14:33:04.000000000 +0100
-+++ fio-1.51/Makefile	2011-03-28 09:21:02.828082564 +0200
+--- fio-1.60/Makefile~	2011-10-13 16:33:51.000000000 +0200
++++ fio-1.60/Makefile	2011-10-18 08:56:00.789652095 +0200
 @@ -2,7 +2,7 @@
  DEBUGFLAGS = -D_FORTIFY_SOURCE=2 -DFIO_INC_DEBUG
  CPPFLAGS= -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 \
  	$(DEBUGFLAGS)
--OPTFLAGS= -O2 -fno-omit-frame-pointer -g $(EXTFLAGS)
+-OPTFLAGS= -O3 -fno-omit-frame-pointer -g $(EXTFLAGS)
 +OPTFLAGS= $(EXTFLAGS)
  CFLAGS	= -std=gnu99 -Wwrite-strings -Wall $(OPTFLAGS)
- LIBS	= -lm
+ LIBS	= -lm $(EXTLIBS)
  PROGS	= fio
