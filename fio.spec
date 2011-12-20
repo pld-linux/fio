@@ -1,12 +1,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	1.60
+Version:	2.0
 Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	34b43256e5676b5439cf81d77ff1d32b
+# Source0-md5:	d8aa7cf27ab63c06396eecc5dcfc85dc
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-crc32c-intel.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
