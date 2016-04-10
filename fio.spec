@@ -1,7 +1,9 @@
-# TODO: HDFS (--enable-libhdfs, requires also java), guasi, fusion-aw (nvm-primitives)
+# TODO:
+# - HDFS (hadoop, --enable-libhdfs, requires also java)
+# - fusion-aw (nvm-primitives): http://opennvm.github.io/
 #
 # Conditional build:
-%bcond_without	ceph		# RDB (CephFS) support
+%bcond_without	ceph		# RBD (CephFS) support
 %bcond_without	glusterfs	# GFAPI support
 %bcond_without	gtk		# GTK+ based GUI (gfio)
 %bcond_without	numa		# NUMA support
@@ -9,17 +11,19 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	2.2.7
+Version:	2.8
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c30299c4e37cd3ae9657c2e4a363092
+# Source0-md5:	7a279f640420800a3e5d74c6237c9b1c
+Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
 %{?with_ceph:BuildRequires:	ceph-devel}
 BuildRequires:	flex
 %{?with_glusterfs:BuildRequires:	glusterfs-devel}
+BuildRequires:	guasi-devel
 BuildRequires:	libaio-devel
 BuildRequires:	libibverbs-devel
 BuildRequires:	librdmacm-devel
@@ -77,6 +81,7 @@ na serwerze.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env bash,/bin/bash,' tools/genfio
 %{__sed} -i -e '1s,/usr/bin/env python,/usr/bin/python,' tools/plot/fio2gnuplot
@@ -88,7 +93,7 @@ na serwerze.
 	%{!?with_glusterfs:--enable-gfapi} \
 	%{?with_gtk:--enable-gfio} \
 	%{!?with_numa:--disable-numa} \
-	%{!?with_ceph:--disable-rdb} \
+	%{!?with_ceph:--disable-rbd} \
 
 %{__make} \
 	LDFLAGS="%{rpmldflags}" \
@@ -112,6 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fio-btrace2fio
 %attr(755,root,root) %{_bindir}/fio-dedupe
 %attr(755,root,root) %{_bindir}/fio-genzipf
+%attr(755,root,root) %{_bindir}/fio-verify-state
 %attr(755,root,root) %{_bindir}/fio2gnuplot
 %attr(755,root,root) %{_bindir}/fio_generate_plots
 %attr(755,root,root) %{_bindir}/genfio

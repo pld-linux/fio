@@ -1,0 +1,12 @@
+--- fio-2.8/configure.orig	2016-03-15 17:10:37.000000000 +0100
++++ fio-2.8/configure	2016-04-10 11:00:51.982001795 +0200
+@@ -890,7 +890,8 @@
+   return 0;
+ }
+ EOF
+-if compile_prog "" "" "guasi"; then
++if compile_prog "" "-lguasi" "guasi"; then
++  LIBS="$LIBS -lguasi"
+   guasi="yes"
+ fi
+ echo "GUASI                         $guasi"
