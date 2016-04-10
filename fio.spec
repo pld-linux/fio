@@ -63,6 +63,18 @@ załączone kilka przykładowych plików zadań. Wyświetla wszystkie
 rodzaje informacji o wydajności I/O. Obsługuje Linuksa, FreeBSD i
 OpenSolarisa.
 
+%package devel
+Summary:	Header files for developing FIO engine modules
+Summary(pl.UTF-8):	Pliki nagłówkowe do tworzenia modułów silników FIO
+Group:		Development/Libraries
+# doesn't require base
+
+%description devel
+Header files for developing FIO engine modules.
+
+%description devel -l pl.UTF-8
+Pliki nagłówkowe do tworzenia modułów silników FIO.
+
 %package -n gfio
 Summary:	GTK+ based graphical front-end for fio
 Summary(pl.UTF-8):	Oparty na GTK+ graficzny interfejs do fio
@@ -107,6 +119,60 @@ rm -rf $RPM_BUILD_ROOT
 	mandir="%{_mandir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# development files for fio modules
+install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,compiler,engines,lib,os,oslib}
+cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helpers.h io_ddir.h io_u_queue.h ioengine.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%ifarch %{ix86} %{x8664} x32
+cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch %{x8664} x32
+cp -p arch/arch-x86_64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch %{ix86} %{x8664} x32
+cp -p arch/arch-x86-common.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch ppc ppc64
+cp -p arch/arch-ppc.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch ia64
+cp -p arch/arch-ia64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch alpha
+cp -p arch/arch-ia64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch s390 s390x
+cp -p arch/arch-s390.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch sparc sparcv9 sparc64
+cp -p arch/arch-sparc.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch sparc64
+cp -p arch/arch-sparc64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch arm aarch64
+cp -p arch/arch-arm.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch mips
+cp -p arch/arch-mips.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch sh
+cp -p arch/arch-sh.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch hppa
+cp -p arch/arch-hppa.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifarch aarch64
+cp -p arch/arch-aarch64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+%ifnarch %{ix86} %{x8664} x32 ppc ppc64 ia64 alpha s390 s390x sparc sparcv9 sparc64 arm mips sh hppa aarch64
+cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
+%endif
+cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
+cp -p lib/{axmap,ffz,gauss,ieee754,lfsr,output_buffer,pattern,rand,rbtree,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
+cp -p os/{binject,os,os-linux}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
+cp -p oslib/{getopt,strlcat}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -125,6 +191,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/fio.1*
 %{_mandir}/man1/fio2gnuplot.1*
 %{_mandir}/man1/fio_generate_plots.1*
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/fio
 
 %if %{with gtk}
 %files -n gfio
