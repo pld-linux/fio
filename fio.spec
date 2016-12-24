@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # development files for fio modules
 install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,compiler,engines,lib,os,oslib}
-cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helpers.h io_ddir.h io_u_queue.h ioengine.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u_queue.h ioengine.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
 cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
@@ -170,7 +170,7 @@ cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
 cp -p lib/{axmap,ffz,gauss,ieee754,lfsr,output_buffer,pattern,rand,rbtree,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
-cp -p os/{binject,os,os-linux}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
+cp -p os/{binject,os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
 cp -p oslib/{getopt,strlcat}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
 
 %clean
