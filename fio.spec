@@ -11,12 +11,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	2.8
+Version:	2.16
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	7a279f640420800a3e5d74c6237c9b1c
+# Source0-md5:	75c74bee5813abbc8f29d1d6c1737f87
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -186,11 +186,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fio-verify-state
 %attr(755,root,root) %{_bindir}/fio2gnuplot
 %attr(755,root,root) %{_bindir}/fio_generate_plots
+%attr(755,root,root) %{_bindir}/fio_latency2csv.py
+%attr(755,root,root) %{_bindir}/fiologparser.py
+%attr(755,root,root) %{_bindir}/fiologparser_hist.py
 %attr(755,root,root) %{_bindir}/genfio
 %{_datadir}/fio
 %{_mandir}/man1/fio.1*
 %{_mandir}/man1/fio2gnuplot.1*
 %{_mandir}/man1/fio_generate_plots.1*
+%{_mandir}/man1/fiologparser_hist.py.1*
 
 %files devel
 %defattr(644,root,root,755)
