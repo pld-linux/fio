@@ -11,12 +11,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	2.16
-Release:	2
+Version:	2.19
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	75c74bee5813abbc8f29d1d6c1737f87
+# Source0-md5:	83275de968ca2c5e9429e7b83710d20e
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # development files for fio modules
 install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,compiler,engines,lib,os,oslib}
-cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u_queue.h ioengine.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u.h io_u_queue.h ioengines.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
 cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
