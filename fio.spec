@@ -3,7 +3,7 @@
 # - fusion-aw (nvm-primitives): http://opennvm.github.io/
 #
 # Conditional build:
-%bcond_with	ceph		# RBD (CephFS) support
+%bcond_without	ceph		# RBD (CephFS) support
 %bcond_without	glusterfs	# GFAPI support
 %bcond_without	gtk		# GTK+ based GUI (gfio)
 %bcond_without	numa		# NUMA support
@@ -12,7 +12,7 @@ Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	2.19
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
