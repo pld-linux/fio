@@ -12,7 +12,7 @@ Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	2.19
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
@@ -68,6 +68,7 @@ Summary:	Header files for developing FIO engine modules
 Summary(pl.UTF-8):	Pliki nagłówkowe do tworzenia modułów silników FIO
 Group:		Development/Libraries
 # doesn't require base
+Requires:	guasi-devel
 
 %description devel
 Header files for developing FIO engine modules.
