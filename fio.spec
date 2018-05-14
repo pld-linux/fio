@@ -1,22 +1,27 @@
 # TODO:
 # - HDFS (hadoop, --enable-libhdfs, requires also java)
 # - fusion-aw (nvm-primitives): http://opennvm.github.io/
+# - cuda
 #
 # Conditional build:
 %bcond_without	ceph		# RBD (CephFS) support
 %bcond_without	glusterfs	# GFAPI support
 %bcond_without	gtk		# GTK+ based GUI (gfio)
 %bcond_without	numa		# NUMA support
+%bcond_without	pmem		# NVM support (using PMDK)
 #
+%ifnarch %{x8664} aarch64
+%undefine	with_pmem
+%endif
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	2.19
-Release:	3
+Version:	3.6
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	83275de968ca2c5e9429e7b83710d20e
+# Source0-md5:	618f6b1e7050d6cd6e415992a692b5af
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -28,6 +33,7 @@ BuildRequires:	libaio-devel
 BuildRequires:	libibverbs-devel
 BuildRequires:	librdmacm-devel
 BuildRequires:	numactl-devel
+%{?with_pmem:BuildRequires:	pmdk-devel}
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 %if %{with gtk}
@@ -106,6 +112,7 @@ na serwerze.
 	%{!?with_glusterfs:--enable-gfapi} \
 	%{?with_gtk:--enable-gfio} \
 	%{!?with_numa:--disable-numa} \
+	%{!?with_pmem:--disable-pmem} \
 	%{!?with_ceph:--disable-rbd} \
 
 %{__make} \
@@ -122,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # development files for fio modules
 install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,compiler,engines,lib,os,oslib}
-cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u.h io_u_queue.h ioengines.h iolog.h json.h log.h minmax.h mutex.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_sem.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u.h io_u_queue.h ioengines.h iolog.h json.h log.h minmax.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
 cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
@@ -170,8 +177,8 @@ cp -p arch/arch-aarch64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
-cp -p lib/{axmap,ffz,gauss,ieee754,lfsr,output_buffer,pattern,rand,rbtree,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
-cp -p os/{binject,os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
+cp -p lib/{axmap,ffz,gauss,ieee754,lfsr,num2str,output_buffer,pattern,rand,rbtree,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
+cp -p os/{os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
 cp -p oslib/{getopt,strlcat}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
 
 %clean
@@ -187,7 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fio-verify-state
 %attr(755,root,root) %{_bindir}/fio2gnuplot
 %attr(755,root,root) %{_bindir}/fio_generate_plots
-%attr(755,root,root) %{_bindir}/fio_latency2csv.py
+%attr(755,root,root) %{_bindir}/fio_jsonplus_clat2csv
 %attr(755,root,root) %{_bindir}/fiologparser.py
 %attr(755,root,root) %{_bindir}/fiologparser_hist.py
 %attr(755,root,root) %{_bindir}/genfio
