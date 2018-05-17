@@ -17,7 +17,7 @@ Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	3.6
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
@@ -102,7 +102,7 @@ na serwerze.
 %setup -q
 %patch0 -p1
 
-%{__sed} -i -e '1s,/usr/bin/env bash,/bin/bash,' tools/genfio
+%{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
 %{__sed} -i -e '1s,/usr/bin/env python,/usr/bin/python,' tools/plot/fio2gnuplot
 
 %build
