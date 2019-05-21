@@ -129,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # development files for fio modules
 install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,crc,compiler,engines,lib,os/linux,oslib}
-cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_sem.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u.h io_u_queue.h ioengines.h iolog.h json.h log.h minmax.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p blktrace_api.h blktrace.h cairo_text_helpers.h cgroup.h client.h config-host.h debug.h diskutil.h err.h fifo.h file.h filehash.h filelock.h fio.h fio_sem.h fio_time.h flist.h flow.h gclient.h gcompat.h gerror.h gettime.h gfio.h ghelpers.h goptions.h graph.h hash.h helpers.h helper_thread.h idletime.h io_ddir.h ioengines.h iolog.h io_u.h io_u_queue.h json.h log.h minmax.h optgroup.h options.h parse.h printing.h profile.h pshared.h rate-submit.h rwlock.h server.h smalloc.h stat.h steadystate.h td_error.h thread_options.h tickmarks.h trim.h verify.h verify-state.h workqueue.h zbd.h zone-dist.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
 cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
@@ -178,10 +178,10 @@ cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
 cp -p crc/{crc{16,32,32c,64,7},fnv,md5,murmur3,sha{1,256,3,512},test,xxhash}.h $RPM_BUILD_ROOT%{_includedir}/fio/crc
-cp -p lib/{axmap,bloom,bswap,ffz,fls,gauss,getrusage,hweight,ieee754,lfsr,memalign,memcpy,mountcheck,num2str,output_buffer,pattern,pow2,prio_tree,rand,rbtree,seqlock,strntol,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
+cp -p lib/{axmap,bloom,bswap,ffz,fls,gauss,getrusage,hweight,ieee754,lfsr,memalign,memcpy,mountcheck,nowarn_snprintf,num2str,output_buffer,pattern,pow2,prio_tree,rand,rbtree,seqlock,strntol,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
 cp -p os/{os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
 cp -p os/linux/io_uring.h $RPM_BUILD_ROOT%{_includedir}/fio/os/linux
-cp -p oslib/{asprintf,getopt,inet_aton,libmtd*,linux-dev-lookup,strcasestr,strlcat,strndup,strsep}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
+cp -p oslib/{asprintf,getopt,inet_aton,libmtd_common,libmtd,libmtd_int,libmtd_xalloc,linux-dev-lookup,strcasestr,strlcat,strndup,strsep}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
 
 %clean
 rm -rf $RPM_BUILD_ROOT
