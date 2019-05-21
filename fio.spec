@@ -17,7 +17,7 @@ Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	3.13
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
@@ -128,7 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # development files for fio modules
-install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,compiler,engines,lib,os,oslib}
+install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,crc,compiler,engines,lib,os/linux,oslib}
 cp -p client.h config-host.h debug.h diskutil.h fifo.h file.h fio.h fio_sem.h fio_time.h flist.h flow.h gettime.h helper_thread.h helpers.h io_ddir.h io_u.h io_u_queue.h ioengines.h iolog.h json.h log.h minmax.h options.h parse.h profile.h server.h stat.h steadystate.h td_error.h thread_options.h workqueue.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
@@ -177,9 +177,11 @@ cp -p arch/arch-aarch64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
-cp -p lib/{axmap,ffz,gauss,ieee754,lfsr,num2str,output_buffer,pattern,rand,rbtree,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
+cp -p crc/{crc{16,32,32c,64,7},fnv,md5,murmur3,sha{1,256,3,512},test,xxhash}.h $RPM_BUILD_ROOT%{_includedir}/fio/crc
+cp -p lib/{axmap,bloom,bswap,ffz,fls,gauss,getrusage,hweight,ieee754,lfsr,memalign,memcpy,mountcheck,num2str,output_buffer,pattern,pow2,prio_tree,rand,rbtree,seqlock,strntol,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
 cp -p os/{os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
-cp -p oslib/{getopt,strlcat}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
+cp -p os/linux/io_uring.h $RPM_BUILD_ROOT%{_includedir}/fio/os/linux
+cp -p oslib/{asprintf,getopt,inet_aton,libmtd*,linux-dev-lookup,strcasestr,strlcat,strndup,strsep}.h $RPM_BUILD_ROOT%{_includedir}/fio/oslib
 
 %clean
 rm -rf $RPM_BUILD_ROOT
