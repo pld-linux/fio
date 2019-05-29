@@ -113,7 +113,7 @@ na serwerze.
 	%{?with_gtk:--enable-gfio} \
 	%{!?with_numa:--disable-numa} \
 	%{!?with_pmem:--disable-pmem} \
-	%{!?with_ceph:--disable-rbd} \
+	%{!?with_ceph:--disable-rbd}
 
 %{__make} \
 	LDFLAGS="%{rpmldflags}" \
