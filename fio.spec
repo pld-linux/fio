@@ -16,12 +16,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.13
-Release:	3
+Version:	3.15
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	5e179a23c391c612b08ce9cffdd5a49c
+# Source0-md5:	11fa4a64b42aec9ad61738c3c72d8fbf
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
