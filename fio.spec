@@ -16,12 +16,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.15
+Version:	3.19
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	11fa4a64b42aec9ad61738c3c72d8fbf
+# Source0-md5:	6a9d50473decf7cb41f4b6a20017955b
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -158,7 +158,7 @@ cp -p arch/arch-sparc.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch sparc64
 cp -p arch/arch-sparc64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
-%ifarch arm aarch64
+%ifarch %{arm} aarch64
 cp -p arch/arch-arm.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 %ifarch mips
@@ -173,7 +173,7 @@ cp -p arch/arch-hppa.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch aarch64
 cp -p arch/arch-aarch64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
-%ifnarch %{ix86} %{x8664} x32 ppc ppc64 ia64 alpha s390 s390x sparc sparcv9 sparc64 arm mips sh hppa aarch64
+%ifnarch %{ix86} %{x8664} x32 ppc ppc64 ia64 alpha s390 s390x sparc sparcv9 sparc64 %{arm} mips sh hppa aarch64
 cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
 cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
