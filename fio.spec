@@ -16,12 +16,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.19
+Version:	3.20
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	6a9d50473decf7cb41f4b6a20017955b
+# Source0-md5:	5cf2eabf487c51001aceada90f961555
 Patch0:		%{name}-guasi.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -32,6 +32,7 @@ BuildRequires:	guasi-devel
 BuildRequires:	libaio-devel
 BuildRequires:	libibverbs-devel
 BuildRequires:	librdmacm-devel
+BuildRequires:	libzbc-devel
 BuildRequires:	numactl-devel
 %{?with_pmem:BuildRequires:	pmdk-devel}
 BuildRequires:	sed >= 4.0
@@ -103,7 +104,7 @@ na serwerze.
 %patch0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
-%{__sed} -i -e '1s,/usr/bin/env python,/usr/bin/python,' tools/plot/fio2gnuplot
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot}
 
 %build
 ./configure \
@@ -129,7 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # development files for fio modules
 install -d $RPM_BUILD_ROOT%{_includedir}/fio/{arch,crc,compiler,engines,lib,os/linux,oslib}
-cp -p blktrace_api.h blktrace.h cairo_text_helpers.h cgroup.h client.h config-host.h debug.h diskutil.h err.h fifo.h file.h filehash.h filelock.h fio.h fio_sem.h fio_time.h flist.h flow.h gclient.h gcompat.h gerror.h gettime.h gfio.h ghelpers.h goptions.h graph.h hash.h helpers.h helper_thread.h idletime.h io_ddir.h ioengines.h iolog.h io_u.h io_u_queue.h json.h log.h minmax.h optgroup.h options.h parse.h printing.h profile.h pshared.h rate-submit.h rwlock.h server.h smalloc.h stat.h steadystate.h td_error.h thread_options.h tickmarks.h trim.h verify.h verify-state.h workqueue.h zbd.h zone-dist.h $RPM_BUILD_ROOT%{_includedir}/fio
+cp -p blktrace_api.h blktrace.h cairo_text_helpers.h cgroup.h client.h config-host.h debug.h diskutil.h err.h fifo.h file.h filehash.h filelock.h fio.h fio_sem.h fio_time.h flist.h flow.h gclient.h gcompat.h gerror.h gettime.h gfio.h ghelpers.h goptions.h graph.h hash.h helpers.h helper_thread.h idletime.h io_ddir.h ioengines.h iolog.h io_u.h io_u_queue.h json.h log.h minmax.h optgroup.h options.h parse.h printing.h profile.h pshared.h rate-submit.h rwlock.h server.h smalloc.h stat.h steadystate.h td_error.h thread_options.h tickmarks.h trim.h verify.h verify-state.h workqueue.h zbd.h zbd_types.h zone-dist.h $RPM_BUILD_ROOT%{_includedir}/fio
 cp -p arch/arch.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifarch %{ix86} %{x8664} x32
 cp -p arch/arch-x86.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
@@ -193,6 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fio-btrace2fio
 %attr(755,root,root) %{_bindir}/fio-dedupe
 %attr(755,root,root) %{_bindir}/fio-genzipf
+%attr(755,root,root) %{_bindir}/fio-histo-log-pctiles.py
 %attr(755,root,root) %{_bindir}/fio-verify-state
 %attr(755,root,root) %{_bindir}/fio2gnuplot
 %attr(755,root,root) %{_bindir}/fio_generate_plots
