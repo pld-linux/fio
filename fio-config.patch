@@ -1,0 +1,10 @@
+--- fio-3.20/fio.h.orig	2020-05-23 19:14:14.000000000 +0200
++++ fio-3.20/fio.h	2020-05-31 07:41:20.001840008 +0200
+@@ -14,6 +14,7 @@
+ #include <inttypes.h>
+ #include <assert.h>
+ 
++#include "config-host.h"
+ #include "compiler/compiler.h"
+ #include "thread_options.h"
+ #include "flist.h"

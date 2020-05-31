@@ -23,6 +23,8 @@ Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
 # Source0-md5:	5cf2eabf487c51001aceada90f961555
 Patch0:		%{name}-guasi.patch
+Patch1:		%{name}-no-common.patch
+Patch2:		%{name}-config.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
 %{?with_ceph:BuildRequires:	ceph-devel}
@@ -102,6 +104,8 @@ na serwerze.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot}
