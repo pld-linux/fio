@@ -16,12 +16,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.20
+Version:	3.23
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	5cf2eabf487c51001aceada90f961555
+# Source0-md5:	a524cccd497e59f14200fdd533a5de71
 Patch0:		%{name}-guasi.patch
 Patch1:		%{name}-no-common.patch
 Patch2:		%{name}-config.patch
@@ -108,7 +108,7 @@ na serwerze.
 %patch2 -p1
 
 %{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
-%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot}
+%{__sed} -i -e '1s,/usr/bin/env python3$,%{__python3},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot,hist/fiologparser_hist.py,fiologparser.py,fio_jsonplus_clat2csv}
 
 %build
 ./configure \
@@ -181,7 +181,7 @@ cp -p arch/arch-aarch64.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %ifnarch %{ix86} %{x8664} x32 ppc ppc64 ia64 alpha s390 s390x sparc sparcv9 sparc64 %{arm} mips sh hppa aarch64
 cp -p arch/arch-generic.h $RPM_BUILD_ROOT%{_includedir}/fio/arch
 %endif
-cp -p compiler/{compiler,compiler-gcc*}.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
+cp -p compiler/compiler.h $RPM_BUILD_ROOT%{_includedir}/fio/compiler
 cp -p crc/{crc{16,32,32c,64,7},fnv,md5,murmur3,sha{1,256,3,512},test,xxhash}.h $RPM_BUILD_ROOT%{_includedir}/fio/crc
 cp -p lib/{axmap,bloom,bswap,ffz,fls,gauss,getrusage,hweight,ieee754,lfsr,memalign,memcpy,mountcheck,nowarn_snprintf,num2str,output_buffer,pattern,pow2,prio_tree,rand,rbtree,seqlock,strntol,types,zipf}.h $RPM_BUILD_ROOT%{_includedir}/fio/lib
 cp -p os/{os,os-linux,os-linux-syscall}.h $RPM_BUILD_ROOT%{_includedir}/fio/os
