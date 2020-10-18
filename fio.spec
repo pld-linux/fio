@@ -114,7 +114,7 @@ na serwerze.
 ./configure \
 	--cc="%{__cc}" \
 	--extra-cflags="%{rpmcflags} %{rpmcppflags}" \
-	%{!?with_glusterfs:--enable-gfapi} \
+	%{!?with_glusterfs:--disable-gfapi} \
 	%{?with_gtk:--enable-gfio} \
 	%{!?with_numa:--disable-numa} \
 	%{!?with_pmem:--disable-pmem} \
