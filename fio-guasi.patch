@@ -1,6 +1,7 @@
---- fio-2.8/configure.orig	2016-03-15 17:10:37.000000000 +0100
-+++ fio-2.8/configure	2016-04-10 11:00:51.982001795 +0200
-@@ -890,7 +890,8 @@
+diff -urNp -x '*.orig' fio-3.23.org/configure fio-3.23/configure
+--- fio-3.23.org/configure	2020-09-06 18:45:11.000000000 +0200
++++ fio-3.23/configure	2021-10-09 23:26:34.042251668 +0200
+@@ -1325,7 +1325,8 @@ int main(int argc, char **argv)
    return 0;
  }
  EOF
@@ -9,4 +10,4 @@
 +  LIBS="$LIBS -lguasi"
    guasi="yes"
  fi
- echo "GUASI                         $guasi"
+ print_config "GUASI" "$guasi"

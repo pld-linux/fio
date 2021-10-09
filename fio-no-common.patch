@@ -1,6 +1,18 @@
---- fio-3.20/gfio.h.orig	2020-05-23 19:14:14.000000000 +0200
-+++ fio-3.20/gfio.h	2020-05-31 07:38:31.099999894 +0200
-@@ -53,7 +53,7 @@
+diff -urNp -x '*.orig' fio-3.23.org/gfio.c fio-3.23/gfio.c
+--- fio-3.23.org/gfio.c	2020-09-06 18:45:11.000000000 +0200
++++ fio-3.23/gfio.c	2021-10-09 23:26:34.305584665 +0200
+@@ -40,6 +40,7 @@
+ 
+ struct gui main_ui;
+ 
++struct gui main_ui;
+ static bool gfio_server_running;
+ static unsigned int gfio_graph_limit = 100;
+ 
+diff -urNp -x '*.orig' fio-3.23.org/gfio.h fio-3.23/gfio.h
+--- fio-3.23.org/gfio.h	2020-09-06 18:45:11.000000000 +0200
++++ fio-3.23/gfio.h	2021-10-09 23:26:34.305584665 +0200
+@@ -53,7 +53,7 @@ struct gfio_graphs {
  /*
   * Main window widgets and data
   */
@@ -9,13 +21,3 @@
  	GtkUIManager *uimanager;
  	GtkRecentManager *recentmanager;
  	GtkActionGroup *actiongroup;
---- fio-3.20/gfio.c.orig	2020-05-23 19:14:14.000000000 +0200
-+++ fio-3.20/gfio.c	2020-05-31 07:40:17.605364061 +0200
-@@ -38,6 +38,7 @@
- #include "gclient.h"
- #include "graph.h"
- 
-+struct gui main_ui;
- static bool gfio_server_running;
- static unsigned int gfio_graph_limit = 100;
- 
