@@ -16,26 +16,25 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.23
+Version:	3.28
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	a524cccd497e59f14200fdd533a5de71
-Patch0:		%{name}-guasi.patch
-Patch1:		%{name}-no-common.patch
-Patch2:		%{name}-config.patch
+# Source0-md5:	09059eedfe246294049254355cdf2741
+Patch0:		%{name}-config.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
 %{?with_ceph:BuildRequires:	ceph-devel}
 BuildRequires:	flex
 %{?with_glusterfs:BuildRequires:	glusterfs-devel}
-BuildRequires:	guasi-devel
 BuildRequires:	libaio-devel
 BuildRequires:	libibverbs-devel
+BuildRequires:	libnfs-devel
 BuildRequires:	librdmacm-devel
 BuildRequires:	libzbc-devel
 BuildRequires:	numactl-devel
+BuildRequires:	pkgconfig
 %{?with_pmem:BuildRequires:	pmdk-devel}
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
@@ -76,8 +75,6 @@ OpenSolarisa.
 Summary:	Header files for developing FIO engine modules
 Summary(pl.UTF-8):	Pliki nagłówkowe do tworzenia modułów silników FIO
 Group:		Development/Libraries
-# doesn't require base
-Requires:	guasi-devel
 
 %description devel
 Header files for developing FIO engine modules.
@@ -104,8 +101,6 @@ na serwerze.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
 %{__sed} -i -e '1s,/usr/bin/env python3$,%{__python3},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot,hist/fiologparser_hist.py,fiologparser.py,fio_jsonplus_clat2csv}
