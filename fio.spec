@@ -1,12 +1,15 @@
 # TODO:
 # - HDFS (hadoop, --enable-libhdfs, requires also java)
 # - fusion-aw (nvm-primitives): http://opennvm.github.io/
-# - cuda
+# - cuda (--enable-cuda, --enable-libcufile)
+# - daos (https://daos.io/)
 #
 # Conditional build:
 %bcond_without	ceph		# RBD (CephFS) support
 %bcond_without	glusterfs	# GFAPI support
 %bcond_without	gtk		# GTK+ based GUI (gfio)
+%bcond_without	nbd		# NBD support (libnbd)
+%bcond_without	iscsi		# iSCSI support (libiscsi)
 %bcond_without	numa		# NUMA support
 %bcond_without	pmem		# NVM support (using PMDK)
 #
@@ -30,9 +33,11 @@ BuildRequires:	flex
 %{?with_glusterfs:BuildRequires:	glusterfs-devel}
 BuildRequires:	libaio-devel
 BuildRequires:	libibverbs-devel
+%{?with_iscsi:BuildRequires:	libiscsi-devel >= 1.9.0}
+%{?with_nbd:BuildRequires:	libnbd-devel >= 0.9.8}
 BuildRequires:	libnfs-devel
 BuildRequires:	librdmacm-devel
-BuildRequires:	libzbc-devel
+BuildRequires:	libzbc-devel >= 5
 BuildRequires:	numactl-devel
 BuildRequires:	pkgconfig
 %{?with_pmem:BuildRequires:	pmdk-devel}
@@ -44,6 +49,9 @@ BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gtk+2-devel >= 2:2.18.0
 BuildRequires:	pkgconfig
 %endif
+%{?with_iscsi:Requires:	libiscsi >= 1.9.0}
+%{?with_nbd:Requires:	libnbd >= 0.9.8}
+Requires:	libzbc >= 5
 # x86 features detection relies on cpuid
 ExcludeArch:	i386 i486
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -111,6 +119,9 @@ na serwerze.
 	--extra-cflags="%{rpmcflags} %{rpmcppflags}" \
 	%{!?with_glusterfs:--disable-gfapi} \
 	%{?with_gtk:--enable-gfio} \
+	%{?with_iscsi:--enable-libiscsi} \
+	%{?with_nbd:--enable-libnbd} \
+	--disable-native \
 	%{!?with_numa:--disable-numa} \
 	%{!?with_pmem:--disable-pmem} \
 	%{!?with_ceph:--disable-rbd}
