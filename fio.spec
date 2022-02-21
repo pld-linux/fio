@@ -20,7 +20,7 @@ Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
 Version:	3.28
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
