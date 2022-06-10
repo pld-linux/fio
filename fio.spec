@@ -19,16 +19,17 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.28
-Release:	3
+Version:	3.30
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
-Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	09059eedfe246294049254355cdf2741
+Source0:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
+# Source0-md5:	002f32fd2ff7667d3ab49352c38007a9
 Patch0:		%{name}-config.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
 %{?with_ceph:BuildRequires:	ceph-devel}
+BuildRequires:	curl-devel
 BuildRequires:	flex
 %{?with_glusterfs:BuildRequires:	glusterfs-devel}
 BuildRequires:	libaio-devel
@@ -39,6 +40,7 @@ BuildRequires:	libnfs-devel
 BuildRequires:	librdmacm-devel
 BuildRequires:	libzbc-devel >= 5
 BuildRequires:	numactl-devel
+BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 %{?with_pmem:BuildRequires:	pmdk-devel}
 BuildRequires:	sed >= 4.0
@@ -199,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc GFIO-TODO HOWTO MORAL-LICENSE README REPORTING-BUGS SERVER-TODO STEADYSTATE-TODO examples
+%doc GFIO-TODO HOWTO.rst MORAL-LICENSE README.rst REPORTING-BUGS SERVER-TODO STEADYSTATE-TODO examples
 %attr(755,root,root) %{_bindir}/fio
 %attr(755,root,root) %{_bindir}/fio-btrace2fio
 %attr(755,root,root) %{_bindir}/fio-dedupe
