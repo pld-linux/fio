@@ -3,6 +3,7 @@
 # - fusion-aw (nvm-primitives): http://opennvm.github.io/
 # - cuda (--enable-cuda, --enable-libcufile)
 # - daos (https://daos.io/)
+# - xnvme >= 0.7.4 (https://xnvme.io/)
 #
 # Conditional build:
 %bcond_without	ceph		# RBD (CephFS) support
@@ -19,12 +20,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.30
+Version:	3.38
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	002f32fd2ff7667d3ab49352c38007a9
+# Source0-md5:	1bb217099019e3bc39641dba5b1ec397
 Patch0:		%{name}-config.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
@@ -33,7 +34,9 @@ BuildRequires:	curl-devel
 BuildRequires:	flex
 %{?with_glusterfs:BuildRequires:	glusterfs-devel}
 BuildRequires:	libaio-devel
+BuildRequires:	libblkio-devel >= 1.0.0
 BuildRequires:	libibverbs-devel
+BuildRequires:	libisal-devel
 %{?with_iscsi:BuildRequires:	libiscsi-devel >= 1.9.0}
 %{?with_nbd:BuildRequires:	libnbd-devel >= 0.9.8}
 BuildRequires:	libnfs-devel
@@ -42,7 +45,7 @@ BuildRequires:	libzbc-devel >= 5
 BuildRequires:	numactl-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
-%{?with_pmem:BuildRequires:	pmdk-devel}
+%{?with_pmem:BuildRequires:	pmdk-devel >= 1.12}
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 %if %{with gtk}
@@ -120,6 +123,7 @@ na serwerze.
 	--cc="%{__cc}" \
 	--extra-cflags="%{rpmcflags} %{rpmcppflags}" \
 	%{!?with_glusterfs:--disable-gfapi} \
+	--dynamic-libengines \
 	%{?with_gtk:--enable-gfio} \
 	%{?with_iscsi:--enable-libiscsi} \
 	%{?with_nbd:--enable-libnbd} \
@@ -214,6 +218,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/fiologparser.py
 %attr(755,root,root) %{_bindir}/fiologparser_hist.py
 %attr(755,root,root) %{_bindir}/genfio
+%dir %{_libdir}/fio
+# TODO: subpackages?
+%attr(755,root,root) %{_libdir}/fio/fio-http.so
+%attr(755,root,root) %{_libdir}/fio/fio-libaio.so
+%attr(755,root,root) %{_libdir}/fio/fio-libblkio.so
+%attr(755,root,root) %{_libdir}/fio/fio-libiscsi.so
+%attr(755,root,root) %{_libdir}/fio/fio-libzbc.so
+%attr(755,root,root) %{_libdir}/fio/fio-nbd.so
+%attr(755,root,root) %{_libdir}/fio/fio-rados.so
+%attr(755,root,root) %{_libdir}/fio/fio-rbd.so
+%attr(755,root,root) %{_libdir}/fio/fio-rdma.so
 %{_datadir}/fio
 %{_mandir}/man1/fio.1*
 %{_mandir}/man1/fio2gnuplot.1*
