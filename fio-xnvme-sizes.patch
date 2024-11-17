@@ -4,7 +4,7 @@
  	const struct xnvme_geo *geo;
  
  	struct xnvme_queue *queue;
-+#ifndef LP64
++#ifndef __LP64__
 +	uint32_t padding_[4];
 +#endif
  
@@ -14,7 +14,7 @@
  struct xnvme_fioe_data {
  	/* I/O completion queue */
  	struct io_u **iocq;
-+#ifndef LP64
++#ifndef __LP64__
 +	uint32_t padding_;
 +#endif
  
@@ -24,7 +24,7 @@
  
  	struct iovec *iovec;
  	struct iovec *md_iovec;
-+#ifndef LP64
++#ifndef __LP64__
 +	uint32_t padding2_[2];
 +#endif
  
