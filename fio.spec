@@ -136,6 +136,7 @@ na serwerze.
 	--disable-native \
 	%{!?with_numa:--disable-numa} \
 	%{!?with_pmem:--disable-pmem} \
+	%{!?with_ceph:--disable-rados} \
 	%{!?with_ceph:--disable-rbd}
 
 %{__make} \
@@ -230,11 +231,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/fio/fio-http.so
 %attr(755,root,root) %{_libdir}/fio/fio-libaio.so
 %attr(755,root,root) %{_libdir}/fio/fio-libblkio.so
-%attr(755,root,root) %{_libdir}/fio/fio-libiscsi.so
+%{?with_iscsi:%attr(755,root,root) %{_libdir}/fio/fio-libiscsi.so}
 %attr(755,root,root) %{_libdir}/fio/fio-libzbc.so
-%attr(755,root,root) %{_libdir}/fio/fio-nbd.so
-%attr(755,root,root) %{_libdir}/fio/fio-rados.so
-%attr(755,root,root) %{_libdir}/fio/fio-rbd.so
+%{?with_nbd:%attr(755,root,root) %{_libdir}/fio/fio-nbd.so}
+%{?with_ceph:%attr(755,root,root) %{_libdir}/fio/fio-rados.so}
+%{?with_ceph:%attr(755,root,root) %{_libdir}/fio/fio-rbd.so}
 %attr(755,root,root) %{_libdir}/fio/fio-rdma.so
 %attr(755,root,root) %{_libdir}/fio/fio-xnvme.so
 %if %{with pmem}
