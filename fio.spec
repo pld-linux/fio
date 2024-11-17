@@ -27,6 +27,7 @@ Group:		Applications/System
 Source0:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
 # Source0-md5:	1bb217099019e3bc39641dba5b1ec397
 Patch0:		%{name}-config.patch
+Patch1:		%{name}-xnvme-sizes.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 BuildRequires:	bison
 %{?with_ceph:BuildRequires:	ceph-devel}
@@ -47,6 +48,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 %{?with_pmem:BuildRequires:	pmdk-devel >= 1.12}
 BuildRequires:	sed >= 4.0
+BuildRequires:	xnvme-devel >= 0.7.4
 BuildRequires:	zlib-devel
 %if %{with gtk}
 BuildRequires:	cairo-devel
@@ -57,6 +59,7 @@ BuildRequires:	pkgconfig
 %{?with_iscsi:Requires:	libiscsi >= 1.9.0}
 %{?with_nbd:Requires:	libnbd >= 0.9.8}
 Requires:	libzbc >= 5
+Requires:	xnvme >= 0.7.4
 # x86 features detection relies on cpuid
 ExcludeArch:	i386 i486
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -114,9 +117,12 @@ na serwerze.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %{__sed} -i -e '1s,/usr/bin/bash,/bin/bash,' tools/genfio
 %{__sed} -i -e '1s,/usr/bin/env python3$,%{__python3},' tools/{hist/fio-histo-log-pctiles.py,plot/fio2gnuplot,hist/fiologparser_hist.py,fiologparser.py,fio_jsonplus_clat2csv}
+
+%{__sed} -i -e '/FIO_EXT_ENG_DIR/ s,"/usr/local/lib/fio","%{_libdir}/fio",' os/os-linux.h
 
 %build
 ./configure \
@@ -141,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	prefix="%{_prefix}" \
+	libdir="%{_libdir}/fio" \
 	mandir="%{_mandir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -229,6 +236,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/fio/fio-rados.so
 %attr(755,root,root) %{_libdir}/fio/fio-rbd.so
 %attr(755,root,root) %{_libdir}/fio/fio-rdma.so
+%attr(755,root,root) %{_libdir}/fio/fio-xnvme.so
+%if %{with pmem}
+%attr(755,root,root) %{_libdir}/fio/fio-dev-dax.so
+%attr(755,root,root) %{_libdir}/fio/fio-libpmem.so
+%endif
 %{_datadir}/fio
 %{_mandir}/man1/fio.1*
 %{_mandir}/man1/fio2gnuplot.1*

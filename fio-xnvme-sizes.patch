@@ -1,0 +1,32 @@
+--- fio-3.38/engines/xnvme.c.orig	2024-10-02 20:53:13.000000000 +0200
++++ fio-3.38/engines/xnvme.c	2024-11-17 11:52:01.854244997 +0100
+@@ -28,6 +28,9 @@ struct xnvme_fioe_fwrap {
+ 	const struct xnvme_geo *geo;
+ 
+ 	struct xnvme_queue *queue;
++#ifndef LP64
++	uint32_t padding_[4];
++#endif
+ 
+ 	uint32_t ssw;
+ 	uint32_t lba_nbytes;
+@@ -41,6 +44,9 @@ XNVME_STATIC_ASSERT(sizeof(struct xnvme_
+ struct xnvme_fioe_data {
+ 	/* I/O completion queue */
+ 	struct io_u **iocq;
++#ifndef LP64
++	uint32_t padding_;
++#endif
+ 
+ 	/* # of iocq entries; incremented via getevents()/cb_pool() */
+ 	uint64_t completed;
+@@ -62,6 +68,9 @@ struct xnvme_fioe_data {
+ 
+ 	struct iovec *iovec;
+ 	struct iovec *md_iovec;
++#ifndef LP64
++	uint32_t padding2_[2];
++#endif
+ 
+ 	struct xnvme_fioe_fwrap files[];
+ };
