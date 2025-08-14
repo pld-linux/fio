@@ -3,7 +3,6 @@
 # - fusion-aw (nvm-primitives): http://opennvm.github.io/
 # - cuda (--enable-cuda, --enable-libcufile)
 # - daos (https://daos.io/)
-# - xnvme >= 0.7.4 (https://xnvme.io/)
 #
 # Conditional build:
 %bcond_without	ceph		# RBD (CephFS) support
@@ -20,12 +19,12 @@
 Summary:	I/O tool for benchmark and stress/hardware verification
 Summary(pl.UTF-8):	Narzędzie do mierzenia wydajności I/O i sprawdzania sprawności sprzętu
 Name:		fio
-Version:	3.38
+Version:	3.40
 Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
-# Source0-md5:	1bb217099019e3bc39641dba5b1ec397
+# Source0-md5:	191c75336f5ab47306649d6061092151
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-xnvme-sizes.patch
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
